@@ -1,0 +1,21 @@
+[package]
+name = "mdq-wasm"
+version = "0.1.0"
+edition = "2021"
+description = "WebAssembly bindings for mdq"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mdq = { git = "https://github.com/yshavit/mdq" }
+wasm-bindgen = "0.2.100"
+js-sys = "0.3"
+web-sys = { version = "0.3", features = ["console"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+console_error_panic_hook = { version = "0.1.7", optional = true }
+clap = { version = "4.5.7", features = ["derive"] }
+
+[features]
+default = ["console_error_panic_hook"]
