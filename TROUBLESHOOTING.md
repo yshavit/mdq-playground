@@ -83,6 +83,35 @@ pub fn set_output_format(&mut self, format: String) {
 
 The `setter` attribute is used to expose Rust methods as JavaScript property setters, but in our case, we want them to be exposed as regular methods that can be called with parentheses.
 
+### 5. Error displaying "No matches found" in JSON format
+
+**Error:**
+```
+Error processing markdown: Error: {"items":[]}
+```
+
+**Solution:**
+When no matches are found in JSON format, the error handling needs to be modified to check for the empty items array in the error string:
+
+```javascript
+// In the catch block of processMarkdown function
+catch (error) {
+    // Handle the case where error is a string
+    const errorStr = typeof error === 'string' ? error : (error.message || error.toString());
+    
+    // Check if the error string contains '{"items":[]}'
+    if (errorStr.includes('{"items":[]}')) {
+        document.getElementById('result').innerHTML = `<pre>No matches found.</pre>`;
+    } else {
+        document.getElementById('result').innerHTML = `<div class="alert alert-danger">
+            Error processing markdown: ${errorStr}
+        </div>`;
+    }
+}
+```
+
+This ensures that when no matches are found in JSON mode, the user sees "No matches found." instead of an error message, providing consistent behavior with the Markdown output format.
+
 ## Building the Project
 
 To build the project, follow these steps:

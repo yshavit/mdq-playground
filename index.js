@@ -123,6 +123,12 @@ async function processMarkdown() {
         // Process the markdown
         const result = process_markdown(markdownContent, selector, options);
         
+        // Check if the result is exactly '{"items":[]}'
+        if (result === '{"items":[]}') {
+            document.getElementById('result').innerHTML = `<pre>No matches found.</pre>`;
+            return;
+        }
+        
         // Display the result
         const resultElem = document.getElementById('result');
         
@@ -130,7 +136,13 @@ async function processMarkdown() {
             // Format JSON for better display
             try {
                 const jsonObj = JSON.parse(result);
-                resultElem.innerHTML = `<pre>${JSON.stringify(jsonObj, null, 2)}</pre>`;
+                
+                // Check if no matches were found (empty items array)
+                if (jsonObj.items && jsonObj.items.length === 0) {
+                    resultElem.innerHTML = `<pre>No matches found.</pre>`;
+                } else {
+                    resultElem.innerHTML = `<pre>${JSON.stringify(jsonObj, null, 2)}</pre>`;
+                }
             } catch (e) {
                 resultElem.innerHTML = `<pre>${result}</pre>`;
             }
@@ -141,9 +153,18 @@ async function processMarkdown() {
         }
     } catch (error) {
         console.error('Error processing markdown:', error);
-        document.getElementById('result').innerHTML = `<div class="alert alert-danger">
-            Error processing markdown: ${error.message || error}
-        </div>`;
+        
+        // Handle the case where error is a string
+        const errorStr = typeof error === 'string' ? error : (error.message || error.toString());
+        
+        // Check if the error string contains '{"items":[]}'
+        if (errorStr.includes('{"items":[]}')) {
+            document.getElementById('result').innerHTML = `<pre>No matches found.</pre>`;
+        } else {
+            document.getElementById('result').innerHTML = `<div class="alert alert-danger">
+                Error processing markdown: ${errorStr}
+            </div>`;
+        }
     } finally {
         // Hide loading indicator
         document.getElementById('loading').style.display = 'none';
