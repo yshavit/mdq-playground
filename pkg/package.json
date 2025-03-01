@@ -1,0 +1,16 @@
+{
+  "name": "mdq-wasm",
+  "type": "module",
+  "description": "WebAssembly bindings for mdq",
+  "version": "0.1.0",
+  "files": [
+    "mdq_wasm_bg.wasm",
+    "mdq_wasm.js",
+    "mdq_wasm.d.ts"
+  ],
+  "main": "mdq_wasm.js",
+  "types": "mdq_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
