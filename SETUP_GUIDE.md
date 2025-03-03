@@ -71,14 +71,6 @@ You can use any local web server to serve the demo. Here are a few options:
 
 2. Open your browser and navigate to `http://localhost:8080`
 
-## Automated Build (Windows)
-
-For Windows users, a PowerShell script is provided to automate the build process:
-
-```powershell
-.\build.ps1
-```
-
 This script will build the WebAssembly module and start a local web server.
 
 ## Troubleshooting
