@@ -73,3 +73,8 @@ echo 'My [example](https://github.com/yshavit/mdq) markdown' | docker run --rm -
 
 You can also download binaries from the [latest release](https://github.com/yshavit/mdq/releases).
 
+## Acknowledgements
+
+Special thank you to [@jerrylususu] for kickstarting this playground project!
+
+[@jerrylususu]: https://github.com/jerrylususu
