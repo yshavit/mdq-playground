@@ -34,14 +34,11 @@ jobs:
       - uses: taiki-e/install-action@v2
         with:
           tool: wasm-pack
-      - run: wasm-pack build --target web
-      #- name: Set up Pages
-      #  uses: actions/configure-pages@v5
+      - run: wasm-pack build --target web -d gh-pages-content/pkg
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          path: gh-pages-content
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
